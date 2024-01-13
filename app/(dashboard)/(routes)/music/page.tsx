@@ -12,15 +12,13 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 
-import {
-  ChatCompletionUserMessageParam,
-  CreateChatCompletionRequestMessage,
-} from "openai/resources/index.mjs";
 import axios from "axios";
 import { Empty } from "@/components/Empty";
 import Loader from "@/components/Loader";
+import { useProModal } from "@/hooks/UseProModal";
 
 function MusicPage() {
+  const proModal = useProModal();
   const router = useRouter();
   const [music, setMusic] = useState<string>();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -38,7 +36,9 @@ function MusicPage() {
       setMusic(response.data.audio);
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }

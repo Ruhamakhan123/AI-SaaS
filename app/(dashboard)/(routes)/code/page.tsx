@@ -12,21 +12,19 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
-import {
-  ChatCompletionUserMessageParam,
-  CreateChatCompletionRequestMessage,
-} from "openai/resources/index.mjs";
+
+import { ChatCompletionRequestMessage } from "openai";
 import axios from "axios";
 import { Empty } from "@/components/Empty";
 import Loader from "@/components/Loader";
 import UserAvatar from "@/components/UserAvatar";
 import BotAvatar from "@/components/BotAvatar";
+import { useProModal } from "@/hooks/UseProModal";
 
 function CodePage() {
+  const proModal = useProModal();
   const router = useRouter();
-  const [messages, setMessages] = useState<
-    CreateChatCompletionRequestMessage[]
-  >([]);
+  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,7 +35,7 @@ function CodePage() {
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionUserMessageParam = {
+      const userMessage: ChatCompletionRequestMessage = {
         role: "user",
         content: values.prompt,
       };
@@ -48,7 +46,9 @@ function CodePage() {
       setMessages((curent) => [...curent, userMessage, response.data]);
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }
