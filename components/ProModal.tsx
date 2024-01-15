@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 const tools = [
   {
     label: "Conversation",
@@ -64,7 +65,7 @@ const ProModal = () => {
       const response = axios.get("/api/stripe");
       window.location.href = (await response).data.url;
     } catch (error) {
-      console.log(error, "STRIPE CLIENT ERROR");
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -101,6 +102,7 @@ const ProModal = () => {
         </DialogHeader>
         <DialogFooter>
           <Button
+            disabled={loading}
             onClick={onSubscribe}
             size="lg"
             variant="premium"
