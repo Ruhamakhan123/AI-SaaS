@@ -1,15 +1,15 @@
 require("dotenv").config();
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import Configuration, { OpenAI } from "openai";
+import { Configuration, OpenAIApi } from "openai";
 import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 const apiKey = process.env.OPENAI_API_KEY;
 
-const openai = new OpenAI({
+const configuration = new Configuration({
   apiKey: apiKey,
 });
-
+const openai = new OpenAIApi(configuration);
 export async function POST(req: Request) {
   try {
     const { userId } = auth();
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!openai.apiKey) {
+    if (!configuration.apiKey) {
       return new NextResponse("OpenAI API key not configured", { status: 500 });
     }
 
@@ -39,9 +39,8 @@ export async function POST(req: Request) {
     if (!freeTrial && !isPro) {
       return new NextResponse("Free trial has expired.", { status: 403 });
     }
-    const response = await openai.images.generate({
+    const response = await openai.createImage({
       prompt,
-      model: "dall-e-3",
       n: parseInt(amount, 10),
       size: resolution,
     });

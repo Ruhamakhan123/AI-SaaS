@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
 import Replicate from "replicate";
 import { checkSubscription } from "@/lib/subscription";
-const apiKey = process.env.REPLICATE_API_KEY;
+const apiKey = process.env.REPLICATE_API_KEY!;
 
 const replicate = new Replicate({
   auth: apiKey,

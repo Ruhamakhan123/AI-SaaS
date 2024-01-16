@@ -1,14 +1,15 @@
 require("dotenv").config();
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import Configuration, { OpenAI } from "openai";
+import { Configuration, OpenAIApi } from "openai";
 import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 const apiKey = process.env.OPENAI_API_KEY;
 
-const openai = new OpenAI({
+const configuration = new Configuration({
   apiKey: apiKey,
 });
+const openai = new OpenAIApi(configuration);
 
 export async function POST(req: Request) {
   try {
@@ -19,7 +20,7 @@ export async function POST(req: Request) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!openai.apiKey) {
+    if (!configuration.apiKey) {
       return new NextResponse("OpenAI API key not configured", { status: 500 });
     }
 
@@ -31,7 +32,7 @@ export async function POST(req: Request) {
     if (!freeTrial && !isPro) {
       return new NextResponse("Free trial has expired.", { status: 403 });
     }
-    const response = await openai.chat.completions.create({
+    const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages,
     });
@@ -40,7 +41,7 @@ export async function POST(req: Request) {
       await increaseApiLimit();
     }
 
-    return NextResponse.json(response.choices[0]); //response.data.choices[0]
+    return NextResponse.json(response.data.choices[0].message); //response.data.choices[0]
   } catch (error) {
     console.log("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
