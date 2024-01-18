@@ -34,7 +34,7 @@ const LandingHero = () => {
           href={
             isSignedIn
               ? "/dashboard"
-              : "/https://calm-bug-25.accounts.dev/sign-up?redirect_url=https%3A%2F%2Fai-saa-s-rose.vercel.app%2Fsign-up%23__clerk_db_jwt%5BeyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXYiOiJkdmJfMmI4TTIyTEVJb0c1YzNTTzFCbUgySGhodUY5In0.GrpETY7PJXwyviz4WtLGjfFoshd1PXJu7cLA4JLHfnBPkHNxUmA8KKBiG91Sfvitx7EIXcyBegWfT3-OSF0JhzdGzJyo0j9Ph3lqbioTHy3nFm3p5Yyf11iqedA7laEIWu95OJBnFJk_IkfNHocbmuaTa2kW2uCHaMu_R_JFyvcoXjhKYbnRJybuTKx63uPxiGI5RFWXoBwML9DMqS8S5LDARgq3pnh2SPowioLNLTluB0Ba8U-MPLQdLVRzurcGweItP8Hf6dksnSCHFPaVu6EQTblIh2CxlZ8S7Yt1SAwRbJye_bQk5-726Y3d31NXp5bqjJsP45Bz43osGbz3uw%5D"
+              : "https://calm-bug-25.accounts.dev/sign-up?redirect_url=https%3A%2F%2Fai-saa-s-rose.vercel.app%2Fsign-up%23__clerk_db_jwt%5BeyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXYiOiJkdmJfMmI4TTIyTEVJb0c1YzNTTzFCbUgySGhodUY5In0.GrpETY7PJXwyviz4WtLGjfFoshd1PXJu7cLA4JLHfnBPkHNxUmA8KKBiG91Sfvitx7EIXcyBegWfT3-OSF0JhzdGzJyo0j9Ph3lqbioTHy3nFm3p5Yyf11iqedA7laEIWu95OJBnFJk_IkfNHocbmuaTa2kW2uCHaMu_R_JFyvcoXjhKYbnRJybuTKx63uPxiGI5RFWXoBwML9DMqS8S5LDARgq3pnh2SPowioLNLTluB0Ba8U-MPLQdLVRzurcGweItP8Hf6dksnSCHFPaVu6EQTblIh2CxlZ8S7Yt1SAwRbJye_bQk5-726Y3d31NXp5bqjJsP45Bz43osGbz3uw%5D"
           }
         >
           <Button
