@@ -30,7 +30,13 @@ const LandingHero = () => {
         Create content using AI 10x faster.
       </div>
       <div>
-        <Link href={isSignedIn ? "/dashboard" : "/sign-in"}>
+        <Link
+          href={
+            isSignedIn
+              ? "/dashboard"
+              : "/https://calm-bug-25.accounts.dev/sign-up?redirect_url=https%3A%2F%2Fai-saa-s-rose.vercel.app%2Fsign-up%23__clerk_db_jwt%5BeyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXYiOiJkdmJfMmI4TTIyTEVJb0c1YzNTTzFCbUgySGhodUY5In0.GrpETY7PJXwyviz4WtLGjfFoshd1PXJu7cLA4JLHfnBPkHNxUmA8KKBiG91Sfvitx7EIXcyBegWfT3-OSF0JhzdGzJyo0j9Ph3lqbioTHy3nFm3p5Yyf11iqedA7laEIWu95OJBnFJk_IkfNHocbmuaTa2kW2uCHaMu_R_JFyvcoXjhKYbnRJybuTKx63uPxiGI5RFWXoBwML9DMqS8S5LDARgq3pnh2SPowioLNLTluB0Ba8U-MPLQdLVRzurcGweItP8Hf6dksnSCHFPaVu6EQTblIh2CxlZ8S7Yt1SAwRbJye_bQk5-726Y3d31NXp5bqjJsP45Bz43osGbz3uw%5D"
+          }
+        >
           <Button
             variant="premium"
             className="md:text-lg p-4 md:p-6 rounded-full font-semibold"
